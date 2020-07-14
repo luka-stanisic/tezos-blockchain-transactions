@@ -4,6 +4,7 @@
 
 export const environment = {
 	production: false,
+	baseApiUrl: 'https://api.tzstats.com/',
 };
 
 /*
