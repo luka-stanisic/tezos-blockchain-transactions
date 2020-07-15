@@ -30,13 +30,13 @@ export const reducer = createReducer(
 			statusState: LoadingState.LOADING,
 		};
 	}),
-	on(TransactionActions.loadTransactionsSuccess, (state, action) =>
+	on(TransactionActions.loadLatestTransactionsSuccess, (state, action) =>
 		adapter.setAll(action.transactions, {
 			...state,
 			statusState: LoadingState.LOADED,
 		})
 	),
-	on(TransactionActions.loadTransactionsFailure, (state, action) => {
+	on(TransactionActions.loadLatestTransactionsFailure, (state, action) => {
 		return {
 			...state,
 			statusState: { error: action.error },

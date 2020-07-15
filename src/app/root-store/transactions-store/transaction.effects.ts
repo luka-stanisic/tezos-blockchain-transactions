@@ -14,8 +14,8 @@ export class TransactionEffects {
 			ofType(fromTransactionActions.loadLatestTransactions),
 			mergeMap((action) =>
 				this.transactionsService.getLatestTransactions().pipe(
-					map((transactions) => fromTransactionActions.loadTransactionsSuccess({ transactions })),
-					catchError((error) => of(fromTransactionActions.loadTransactionsFailure({ error })))
+					map((transactions) => fromTransactionActions.loadLatestTransactionsSuccess({ transactions })),
+					catchError((error) => of(fromTransactionActions.loadLatestTransactionsFailure({ error })))
 				)
 			)
 		)

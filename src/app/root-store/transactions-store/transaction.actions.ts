@@ -3,11 +3,11 @@ import { Transaction } from '../../shared/models/transaction';
 
 // Load latest transactions
 export const loadLatestTransactions = createAction('[Transactions Page] Load Latest Transactions Request');
-export const loadTransactionsSuccess = createAction(
+export const loadLatestTransactionsSuccess = createAction(
 	'[Transactions API] Load Transactions Success',
 	props<{ transactions: Transaction[] }>()
 );
-export const loadTransactionsFailure = createAction(
+export const loadLatestTransactionsFailure = createAction(
 	'[Transactions API] Load Transactions Failure',
 	props<{ error: any }>()
 );
