@@ -5,7 +5,7 @@ export class AppPage {
 		return browser.get(browser.baseUrl) as Promise<unknown>;
 	}
 
-	getTitleText(): Promise<string> {
-		return element(by.css('app-root .content span')).getText() as Promise<string>;
+	getTableTitle(): Promise<string> {
+		return element(by.css('.page-container .mat-table .title-row .title-wrap .text')).getText() as Promise<string>;
 	}
 }
