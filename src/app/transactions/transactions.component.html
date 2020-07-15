@@ -1,0 +1,56 @@
+<div class="page-container">
+	<cdk-virtual-scroll-viewport [itemSize]="48" (scrolledIndexChange)="onScroll($event)">
+		<table mat-table [dataSource]="tableDataSource">
+			<!-- Transactions title -->
+			<ng-container matColumnDef="transactions-title">
+				<th mat-header-cell *matHeaderCellDef colspan="4">
+					<div class="title-wrap">
+						<span class="material-icons"> history </span>
+						<span class="text">Recent Transactions</span>
+					</div>
+				</th>
+			</ng-container>
+
+			<!-- Type -->
+			<ng-container matColumnDef="type">
+				<th mat-header-cell *matHeaderCellDef>Type</th>
+				<td mat-cell *matCellDef="let trans">
+					<span class="badge" style="text-transform: capitalize;">
+						{{ trans.type + (trans.type === 'pending' ? '...' : '') }}
+					</span>
+				</td>
+			</ng-container>
+
+			<!-- Amount -->
+			<ng-container matColumnDef="amount">
+				<th mat-header-cell *matHeaderCellDef>Amount XTZ ( USD )</th>
+				<td mat-cell *matCellDef="let trans">
+					{{ '+' + (trans.volume | number: '1.1-1') + ' XTZ' }}
+					<span class="text-lighter">{{ (trans.volume_usd | number: '1.1-1') + ' USD' }}</span>
+				</td>
+			</ng-container>
+
+			<!-- Date -->
+			<ng-container matColumnDef="date">
+				<th mat-header-cell *matHeaderCellDef>Date</th>
+				<td mat-cell *matCellDef="let trans">
+					{{ trans.time | date: 'MMM d y, HH:mm' }}
+				</td>
+			</ng-container>
+
+			<!-- Address -->
+			<ng-container matColumnDef="address">
+				<th mat-header-cell *matHeaderCellDef>Address</th>
+				<td mat-cell *matCellDef="let trans">
+					{{ trans.sender.substring(0, 2) + '...' + trans.sender.substring(trans.sender.length - 5) }}
+				</td>
+			</ng-container>
+
+			<!-- Row definitions -->
+			<tr class="title-row" mat-header-row *matHeaderRowDef="['transactions-title']; sticky: true"></tr>
+
+			<tr class="table-header" mat-header-row *matHeaderRowDef="columndefs; sticky: true"></tr>
+			<tr mat-row [ngClass]="row.type" *matRowDef="let row; columns: columndefs"></tr>
+		</table>
+	</cdk-virtual-scroll-viewport>
+</div>
