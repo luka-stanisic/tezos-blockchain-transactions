@@ -43,28 +43,20 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	getLastRowId() {
-		return this.transactions[this.transactions.length - 1].row_id;
-	}
-
-	getBadgeClass(trans: Transaction) {
-		// TODO
-		return 'recieved';
-	}
-
 	onScroll(index: number) {
 		if (this.transactions.length) {
-			console.log(index);
 			const lastElementInView = index + 10;
 			const triggerElement = this.transactions.length - 5;
-			console.log(lastElementInView, triggerElement);
 
 			if (!this.loadingMoreTrans && lastElementInView >= triggerElement) {
 				this.loadingMoreTrans = true;
-				console.log('dispatch');
 				this.store.dispatch(transactionActions.loadMoreTransactions({ lastRowId: this.getLastRowId() }));
 			}
 		}
+	}
+
+	getLastRowId() {
+		return this.transactions[this.transactions.length - 1].row_id;
 	}
 
 	ngOnDestroy() {
