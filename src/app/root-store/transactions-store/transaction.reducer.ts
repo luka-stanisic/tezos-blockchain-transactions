@@ -23,7 +23,7 @@ export const initialState: TransactionState = adapter.getInitialState({
 
 export const reducer = createReducer(
 	initialState,
-	on(TransactionActions.loadTransactions, (state, action) => {
+	on(TransactionActions.loadLatestTransactions, (state, action) => {
 		return {
 			...state,
 			statusState: LoadingState.LOADING,

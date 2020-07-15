@@ -7,6 +7,10 @@ import { TransactionEffects } from './transaction.effects';
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, StoreModule.forFeature(fromTransaction.transactionsFeatureKey, fromTransaction.reducer), EffectsModule.forFeature([TransactionEffects])],
+	imports: [
+		CommonModule,
+		StoreModule.forFeature(fromTransaction.transactionsFeatureKey, fromTransaction.reducer),
+		EffectsModule.forFeature([TransactionEffects]),
+	],
 })
 export class TransactionsStoreModule {}
