@@ -16,9 +16,12 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
 	ngUnsubscribe$ = new Subject();
+
 	transactions: Transaction[];
 	transactionsLoading$: Observable<boolean>;
 	transactionsError$: Observable<any>;
+
+	loadingMoreTrans = false;
 
 	tableDataSource: MatTableDataSource<Transaction>;
 	columndefs: any[] = ['type', 'amount', 'date', 'address'];
@@ -36,6 +39,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 			.subscribe((transactions) => {
 				this.transactions = transactions;
 				this.tableDataSource = new MatTableDataSource<Transaction>(this.transactions);
+				this.loadingMoreTrans = false;
 			});
 	}
 
@@ -46,6 +50,21 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 	getBadgeClass(trans: Transaction) {
 		// TODO
 		return 'recieved';
+	}
+
+	onScroll(index: number) {
+		if (this.transactions.length) {
+			console.log(index);
+			const lastElementInView = index + 10;
+			const triggerElement = this.transactions.length - 5;
+			console.log(lastElementInView, triggerElement);
+
+			if (!this.loadingMoreTrans && lastElementInView >= triggerElement) {
+				this.loadingMoreTrans = true;
+				console.log('dispatch');
+				this.store.dispatch(transactionActions.loadMoreTransactions({ lastRowId: this.getLastRowId() }));
+			}
+		}
 	}
 
 	ngOnDestroy() {

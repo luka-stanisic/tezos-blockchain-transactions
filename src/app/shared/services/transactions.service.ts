@@ -14,7 +14,7 @@ export class TransactionsService {
 	getLatestTransactions(): Observable<Transaction[]> {
 		const columns = 'row_id,time,type,sender,volume';
 		const type = 'transaction';
-		const limit = '40';
+		const limit = '20';
 		return this.http
 			.get<Transaction[]>(
 				environment.baseApiUrl +
@@ -32,7 +32,7 @@ export class TransactionsService {
 			);
 	}
 
-	getOlderTransactions(lastRowId: number): Observable<Transaction[]> {
+	getMoreTransactions(lastRowId: number): Observable<Transaction[]> {
 		const columns = 'row_id,time,type,sender,volume';
 		const type = 'transaction';
 		const limit = '10';
@@ -48,7 +48,7 @@ export class TransactionsService {
 			.pipe(
 				map((transResp: any) => {
 					return transResp.map((item: any) => {
-						Transaction.mapToModel(item, columns.split(','));
+						return Transaction.mapToModel(item, columns.split(','));
 					});
 				})
 			);

@@ -1,5 +1,5 @@
 <div class="page-container">
-	<cdk-virtual-scroll-viewport [itemSize]="48">
+	<cdk-virtual-scroll-viewport [itemSize]="48" (scrolledIndexChange)="onScroll($event)">
 		<table mat-table [dataSource]="tableDataSource">
 			<!-- Transactions title -->
 			<ng-container matColumnDef="transactions-title">

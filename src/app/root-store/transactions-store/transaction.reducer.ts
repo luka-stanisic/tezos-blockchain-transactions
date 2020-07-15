@@ -23,6 +23,7 @@ export const initialState: TransactionState = adapter.getInitialState({
 
 export const reducer = createReducer(
 	initialState,
+	// Load Latest Transactions
 	on(TransactionActions.loadLatestTransactions, (state, action) => {
 		return {
 			...state,
@@ -36,6 +37,26 @@ export const reducer = createReducer(
 		})
 	),
 	on(TransactionActions.loadTransactionsFailure, (state, action) => {
+		return {
+			...state,
+			statusState: { error: action.error },
+		};
+	}),
+
+	// Load More Transactions
+	on(TransactionActions.loadMoreTransactions, (state, action) => {
+		return {
+			...state,
+			statusState: LoadingState.LOADING,
+		};
+	}),
+	on(TransactionActions.loadMoreTransactionsSuccess, (state, action) => {
+		return adapter.addMany(action.transactions, {
+			...state,
+			statusState: LoadingState.LOADED,
+		});
+	}),
+	on(TransactionActions.loadMoreTransactionsFailure, (state, action) => {
 		return {
 			...state,
 			statusState: { error: action.error },

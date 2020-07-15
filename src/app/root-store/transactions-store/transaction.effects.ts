@@ -12,22 +12,22 @@ export class TransactionEffects {
 	loadLatestTransactions$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(fromTransactionActions.loadLatestTransactions),
-			mergeMap(action =>
+			mergeMap((action) =>
 				this.transactionsService.getLatestTransactions().pipe(
-					map(transactions => fromTransactionActions.loadTransactionsSuccess({ transactions })),
-					catchError(error => of(fromTransactionActions.loadTransactionsFailure({ error })))
+					map((transactions) => fromTransactionActions.loadTransactionsSuccess({ transactions })),
+					catchError((error) => of(fromTransactionActions.loadTransactionsFailure({ error })))
 				)
 			)
 		)
 	);
 
-	loadOlderTransactions$ = createEffect(() =>
+	loadMoreTransactions$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(fromTransactionActions.loadOlderTransactions),
-			mergeMap(action =>
-				this.transactionsService.getOlderTransactions(action.lastRowId).pipe(
-					map(transactions => fromTransactionActions.loadTransactionsSuccess({ transactions })),
-					catchError(error => of(fromTransactionActions.loadTransactionsFailure({ error })))
+			ofType(fromTransactionActions.loadMoreTransactions),
+			mergeMap((action) =>
+				this.transactionsService.getMoreTransactions(action.lastRowId).pipe(
+					map((transactions) => fromTransactionActions.loadMoreTransactionsSuccess({ transactions })),
+					catchError((error) => of(fromTransactionActions.loadMoreTransactionsFailure({ error })))
 				)
 			)
 		)
